@@ -7,16 +7,20 @@ dotenv.config()
 const app = express()
 
 async function main(){
-    // const prices = await getPrices()
-
-    //temp
-    const prices = {
-        c100:3.01,
-        c200:5.03,
-        c300:4.22,
-        c500:6.43,
-        c1000:17.12,
+    if(process.env.DEV == 'true'){
+        console.log('Running in dev mode using fake prices.')
+        var prices = {
+            c100:3.01,
+            c200:5.03,
+            c300:4.22,
+            c500:6.43,
+            c1000:17.12,
+        }
     }
+    else{
+        var prices = await getPrices()
+    }
+
 
     app.get('/prices',(req,res) => {
         res.send(prices)
