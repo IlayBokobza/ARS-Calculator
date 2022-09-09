@@ -7,6 +7,7 @@
     padding: 1rem 0;
     font-size: 2rem;
     padding-bottom: 10rem;
+    margin-bottom: 2rem;
     clip-path: polygon(0 0, 100% 0, 100% 81%, 0 100%);
 
     h1{
@@ -43,6 +44,7 @@
     &__input{
         font-size: 4rem;
         position: relative;
+        margin-bottom: 5rem;
 
         input{
             font-size: 4rem;
@@ -54,6 +56,29 @@
             border: .2rem #fff solid;
             border-radius: .1rem;
             color: #fff;
+
+            &::-webkit-outer-spin-button, &::-webkit-inner-spin-button{
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            -moz-appearance: textfield;
+        }
+    }
+
+
+    button{
+        font-size: 4rem;
+        padding: 0 5rem;
+        color: #fff;
+        background-color: transparent;
+        border: .2rem #fff solid;
+        cursor: pointer;
+        transition: opacity 0.3s;
+
+        &:disabled{
+            cursor: auto;
+            opacity: 0.3;
         }
     }
 }

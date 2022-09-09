@@ -35,15 +35,69 @@ function placeholderNumberTyper(min,max,id){
     },500)
 }
 
-//refs
+function setLoading(value,btn){
+    if(value){
+        document.body.style.cursor = 'progress'
+        btn.style.cursor = 'progress'
+    }
+    else{
+        document.body.style.cursor = 'auto'
+        btn.style.cursor = null
+    }
+}
+
+function handleInputUpdate(){
+    if(input.value > algoChange){
+        algoName.textContent = 'speed'
+    }
+    else{
+        algoName.textContent = 'accurate'
+    }
+
+    btn.disabled = input.value <= 0
+}
+
+function handleCalculation(cardsRaw){
+    //groups cards
+    const total = cardsRaw.price
+    const cards = {}
+    
+    cardsRaw.cards.forEach(card => {
+        cards[card] = (cards[card]) ? cards[card] + 1 : 1;
+    })
+
+    //disable everything
+    const everyCard = [100,200,300,500,1000]
+    everyCard.forEach(card => {
+        document.getElementById(`${card}-card`).style.display = 'none'
+    })
+    
+    //enable needed cards
+    main.style.display = 'block'
+    UsdTotal.textContent = total.toFixed(2)
+    NisTotal.textContent = (total * rate).toFixed(2)
+
+    for(const card in cards){
+        document.getElementById(`${card}-card`).style.display = 'block'
+        document.getElementById(`${card}-amount`).textContent = `x${cards[card]}`
+    }
+}
+
+//data and refs
 const input = document.getElementById('amount-input')
 const algoName = document.getElementById('algo-name')
-console.log(input)
+const btn = document.getElementById('calculate-btn')
+const main = document.getElementById('main')
+const UsdTotal = document.getElementById('usd-total')
+const NisTotal = document.getElementById('nis-total')
+const NisRate = document.getElementById('nis-usd-rate')
+
+const algoChange = 3000;
 
 //runtime
 
 //set placeholder animation
-placeholderNumberTyper(100,2000,'amount-input')
+placeholderNumberTyper(1000,2000,'amount-input')
 
 //setprices
 document.getElementById('price-100').textContent = prices.c100
@@ -51,13 +105,29 @@ document.getElementById('price-200').textContent = prices.c200
 document.getElementById('price-300').textContent = prices.c300
 document.getElementById('price-500').textContent = prices.c500
 document.getElementById('price-1000').textContent = prices.c1000
+NisRate.textContent = rate
 
-//set algorithim name
-input.addEventListener('keyup',() => {
-    if(input.value > 3000){
-        algoName.textContent = 'speed'
-    }
-    else{
-        algoName.textContent = 'accurate'
-    }
+//set algorithim name and enable/disable button
+input.addEventListener('keyup',handleInputUpdate)
+
+
+//handle submit
+btn.addEventListener('click',() => {
+    setLoading(true,btn)
+
+    setTimeout(() => {
+        const value = input.value
+    
+        if(value > algoChange){
+            var out = algorithms.nonBruteForce(prices,value)
+        }
+        else{
+            var out = algorithms.bruteForce(prices,value)
+        }
+
+        input.value = ''
+        handleInputUpdate()
+        handleCalculation(out)
+        setLoading(false,btn)
+    },5)
 })

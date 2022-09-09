@@ -8,6 +8,7 @@
   padding: 1rem 0;
   font-size: 2rem;
   padding-bottom: 10rem;
+  margin-bottom: 2rem;
   clip-path: polygon(0 0, 100% 0, 100% 81%, 0 100%); }
   .header h1 {
     font-size: 5rem !important; }
@@ -30,7 +31,8 @@
     width: 100%; }
   .header__input {
     font-size: 4rem;
-    position: relative; }
+    position: relative;
+    margin-bottom: 5rem; }
     .header__input input {
       font-size: 4rem;
       width: 15rem;
@@ -40,13 +42,53 @@
       border: none;
       border: .2rem #fff solid;
       border-radius: .1rem;
-      color: #fff; }
+      color: #fff;
+      -moz-appearance: textfield; }
+      .header__input input::-webkit-outer-spin-button, .header__input input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0; }
+  .header button {
+    font-size: 4rem;
+    padding: 0 5rem;
+    color: #fff;
+    background-color: transparent;
+    border: .2rem #fff solid;
+    cursor: pointer;
+    transition: opacity 0.3s; }
+    .header button:disabled {
+      cursor: auto;
+      opacity: 0.3; }
+
+.main__cards {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 3rem; }
+
+.main__card {
+  text-align: center;
+  width: 100%; }
+  .main__card img {
+    max-height: 47rem;
+    max-width: 75%; }
+
+.main__amount-text {
+  font-size: 7rem; }
+
+.main__total {
+  font-size: 5rem;
+  text-align: center; }
+
+.main__nis-rate {
+  margin-left: 5rem; }
 
 * {
   font-family: 'Oswald', sans-serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box; }
+
+body {
+  overflow-x: hidden; }
 
 :root {
   font-size: 62.5%; }

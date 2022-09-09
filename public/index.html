@@ -13,6 +13,13 @@
         req.open('GET','/prices',false)
         req.send(null)
         window.prices = JSON.parse(req.responseText)
+        
+        //load nis rate
+        const req2 = new XMLHttpRequest();
+        req2.open('GET','https://api.exchangerate.host/convert?from=USD&to=ILS',false)
+        req2.send(null)
+        window.rate = JSON.parse(req2.responseText).info.rate
+
         window.algorithms = {}
     </script>
     <!-- load scripts -->
@@ -39,8 +46,36 @@
         <span class="d-block header__100ars">1000 ARS - <span id="price-1000">X</span>$</span>
         <!-- input -->
         <div class="header__input">
-            Buy <input type="text" id="amount-input" placeholder=""> ARS in gift cards. <span class="header__algo-text">Using the <span id="algo-name">accurate</span> algorithm.</span>
+            Buy <input type="number" id="amount-input" placeholder=""> ARS in gift cards. <span class="header__algo-text">Using the <span id="algo-name">accurate</span> algorithm.</span>
         </div>
+        <!-- Btn -->
+        <button id="calculate-btn" disabled>Calculate</button>
     </header>
+    <main style="display: none;" id="main" class="main">
+        <div class="main__cards">
+            <div style="display: none;" id="100-card" class="main__card">
+                <img src="assets/cards/100ars.jpg" alt="100 ars steam gift card">
+                <div class="main__amount-text" id="100-amount">x5</div>
+            </div>
+            <div style="display: none;" id="200-card" class="main__card">
+                <img src="assets/cards/200ars.jpg" alt="200 ars steam gift card">
+                <div class="main__amount-text" id="200-amount">x5</div>
+            </div>
+            <div style="display: none;" id="300-card" class="main__card">
+                <img src="assets/cards/300ars.jpg" alt="300 ars steam gift card">
+                <div class="main__amount-text" id="300-amount">x5</div>
+            </div>
+            <div style="display: none;" id="500-card" class="main__card">
+                <img src="assets/cards/500ars.jpg" alt="500 ars steam gift card">
+                <div class="main__amount-text" id="500-amount">x5</div>
+            </div>
+            <div style="display: none;" id="1000-card" class="main__card">
+                <img src="assets/cards/1000ars.jpg" alt="1000 ars steam gift card">
+                <div class="main__amount-text" id="1000-amount">x5</div>
+            </div>
+        </div>
+        <div class="main__total">The total price is <span id="usd-total">???</span> USD, or <span id="nis-total">???</span> NIS*</div>
+        <span class="main__nis-rate">*1 USD for <span id="nis-usd-rate">3.4</span> NIS</span>
+    </main>
 </body>
 </html>
