@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <title>ARS Gift Card Calculator</title>
     <script>
         //loads prices
-        fetch('/prices').then(res => {
-            res.json().then(data => {
-                window.prices = data
-            })
-        })
+        const req = new XMLHttpRequest();
+        req.open('GET','/prices',false)
+        req.send(null)
+        window.prices = JSON.parse(req.responseText)
         window.algorithms = {}
     </script>
     <!-- load scripts -->
@@ -23,6 +21,26 @@
     <script defer src="js/index.js"></script>
 </head>
 <body>
-    <h1>ARS Gift Card Calculator</h1>
+    <header class="header">
+        <h1>ARS Gift Card Calculator</h1>
+        <!-- prices -->
+        <h2>Current Prices</h2>
+        <span class="header__update-text">Updates every day at 12am</span>
+        <div class="d-flex">
+            <div class="header__price-box">
+                <span class="d-block">100 ARS - <span id="price-100">X</span>$</span>
+                <span class="d-block">200 ARS - <span id="price-200">X</span>$</span>
+            </div>
+            <div class="header__price-box">
+                <span class="d-block">300 ARS - <span id="price-300">X</span>$</span>
+                <span class="d-block">500 ARS - <span id="price-500">X</span>$</span>
+            </div>
+        </div>
+        <span class="d-block header__100ars">1000 ARS - <span id="price-1000">X</span>$</span>
+        <!-- input -->
+        <div class="header__input">
+            Buy <input type="text" id="amount-input" placeholder=""> ARS in gift cards. <span class="header__algo-text">Using the <span id="algo-name">accurate</span> algorithm.</span>
+        </div>
+    </header>
 </body>
 </html>
