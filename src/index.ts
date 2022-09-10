@@ -18,6 +18,8 @@ async function setPrices(){
             c300:4.22,
             c500:6.43,
             c1000:17.12,
+            rate:3.4,
+            rateType:'USD',
         }
     }
     else{

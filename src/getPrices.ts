@@ -8,7 +8,9 @@ export type prices = {
     c200:number,
     c300:number,
     c500:number,
-    c1000:number
+    c1000:number,
+    rate:number,
+    rateType:string
 }
 
 export async function getPrices(){
@@ -27,8 +29,11 @@ export async function getPrices(){
         c200:0,
         c300:0,
         c500:0,
-        c1000:0
+        c1000:0,
+        rate:0,
+        rateType:'',
     }
+    let currency = ''
     
     for(const p in links){
         try{
@@ -40,10 +45,21 @@ export async function getPrices(){
             })
             const $ = load(html)
             const elm = $('#collapsible-panel-offers > div > ul:nth-child(2) > li:nth-child(2) > div.indexes__StyledOfferListItemRightSide-sc-1vslyo5-33.bjVUIs > div > span')
-            const price = parseFloat(elm.text().replace('$ ',''))
-            out[p as card] = price
+            const text = elm.text()
+            let price = null
 
-            console.log(`${p} is ${elm.text()}$`)
+            if(text.includes('$')){
+                currency = 'USD'
+                price = parseFloat(text.replace('$ ',''))
+            }
+            if(text.includes('€')){
+                currency = 'EUR'
+                price = parseFloat(text.replace('€ ',''))
+            }
+
+            out[p as card] = price!
+
+            console.log(`${p} is ${elm.text()}`)
         }
         catch(e:any){
             if(e.response){
@@ -56,6 +72,16 @@ export async function getPrices(){
             process.exit()
         }
     }
+
+    //getting rate
+    if(!currency){
+        console.log('Invalid Currency')
+        process.exit()
+    }
+    const {data} = await axios.get(`https://api.exchangerate.host/convert?from=${currency}&to=ILS`)
+    out.rate = data.info.rate
+    out.rateType = currency
+    console.log(`Rate is ${out.rate} ${currency}`)
 
     return out
 }

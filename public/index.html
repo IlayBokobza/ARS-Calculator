@@ -23,12 +23,6 @@
         req.open('GET','/prices',false)
         req.send(null)
         window.prices = JSON.parse(req.responseText)
-        
-        //load nis rate
-        const req2 = new XMLHttpRequest();
-        req2.open('GET','https://api.exchangerate.host/convert?from=USD&to=ILS',false)
-        req2.send(null)
-        window.rate = JSON.parse(req2.responseText).info.rate
 
         window.algorithms = {}
     </script>
@@ -45,12 +39,12 @@
         <span class="header__update-text">Updates every day at 12am</span>
         <div class="d-flex">
             <div class="header__price-box">
-                <span class="d-block">100 ARS - <span id="price-100">X</span>$</span>
-                <span class="d-block">200 ARS - <span id="price-200">X</span>$</span>
+                <span class="d-block">100 ARS - <span id="price-100">X</span></span>
+                <span class="d-block">200 ARS - <span id="price-200">X</span></span>
             </div>
             <div class="header__price-box">
-                <span class="d-block">300 ARS - <span id="price-300">X</span>$</span>
-                <span class="d-block">500 ARS - <span id="price-500">X</span>$</span>
+                <span class="d-block">300 ARS - <span id="price-300">X</span></span>
+                <span class="d-block">500 ARS - <span id="price-500">X</span></span>
             </div>
         </div>
         <span class="d-block header__100ars">1000 ARS - <span id="price-1000">X</span>$</span>
@@ -84,8 +78,8 @@
                 <div class="main__amount-text" id="1000-amount">x5</div>
             </div>
         </div>
-        <div class="main__total">The total price is <span id="usd-total">???</span> USD, or <span id="nis-total">???</span> NIS*</div>
-        <span class="main__nis-rate">*1 USD for <span id="nis-usd-rate">3.4</span> NIS</span>
+        <div class="main__total">The total price is <span id="usd-total">???</span>, or <span id="nis-total">???</span> NIS*</div>
+        <span class="main__nis-rate">*1 for <span id="nis-usd-rate">3.4</span> NIS</span>
     </main>
 </body>
 </html>

@@ -74,8 +74,8 @@ function handleCalculation(cardsRaw){
     
     //enable needed cards
     main.style.display = 'block'
-    UsdTotal.textContent = total.toFixed(2)
-    NisTotal.textContent = (total * rate).toFixed(2)
+    UsdTotal.textContent = `${total.toFixed(2)} ${prices.rateType}`
+    NisTotal.textContent = (total * prices.rate).toFixed(2)
 
     for(const card in cards){
         document.getElementById(`${card}-card`).style.display = 'block'
@@ -100,12 +100,24 @@ const algoChange = 3000;
 placeholderNumberTyper(1000,2000,'amount-input')
 
 //setprices
-document.getElementById('price-100').textContent = prices.c100
-document.getElementById('price-200').textContent = prices.c200
-document.getElementById('price-300').textContent = prices.c300
-document.getElementById('price-500').textContent = prices.c500
-document.getElementById('price-1000').textContent = prices.c1000
-NisRate.textContent = rate
+let rateIcon = null;
+
+if(prices.rateType === 'USD'){
+    rateIcon = '$'
+}
+else if(prices.rateType === 'EUR'){
+    rateIcon = '€'
+}
+else{
+    rateIcon = '?'
+}
+
+document.getElementById('price-100').textContent = prices.c100 + rateIcon
+document.getElementById('price-200').textContent = prices.c200 + rateIcon
+document.getElementById('price-300').textContent = prices.c300 + rateIcon
+document.getElementById('price-500').textContent = prices.c500 + rateIcon
+document.getElementById('price-1000').textContent = prices.c1000 + rateIcon
+NisRate.textContent = prices.rate
 
 //set algorithim name and enable/disable button
 input.addEventListener('keyup',handleInputUpdate)
@@ -117,12 +129,15 @@ btn.addEventListener('click',() => {
 
     setTimeout(() => {
         const value = input.value
+        const data = {...prices}
+        delete data.rate
+        delete data.rateType
     
         if(value > algoChange){
-            var out = algorithms.nonBruteForce(prices,value)
+            var out = algorithms.nonBruteForce(data,value)
         }
         else{
-            var out = algorithms.bruteForce(prices,value)
+            var out = algorithms.bruteForce(data,value)
         }
 
         input.value = ''
