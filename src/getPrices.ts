@@ -43,7 +43,7 @@ export async function getPrices(){
             const price = parseFloat(elm.text().replace('$ ',''))
             out[p as card] = price
 
-            console.log(`${p} is ${price}$`)
+            console.log(`${p} is ${elm.text()}$`)
         }
         catch(e:any){
             if(e.response){
