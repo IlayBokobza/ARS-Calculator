@@ -1,15 +1,18 @@
 import express from 'express'
 import path from 'path'
 import dotenv from 'dotenv'
-import { getPrices } from './getPrices'
+import cron from 'node-cron'
+import { getPrices, prices } from './getPrices'
 
 dotenv.config()
 const app = express()
 
-async function main(){
+let currentPrices:prices | null = null;
+
+async function setPrices(){
     if(process.env.DEV == 'true'){
         console.log('Running in dev mode using fake prices.')
-        var prices = {
+        currentPrices = {
             c100:3.01,
             c200:5.03,
             c300:4.22,
@@ -18,13 +21,19 @@ async function main(){
         }
     }
     else{
-        var prices = await getPrices()
+        currentPrices = await getPrices()
     }
-    return
+}
+
+async function main(){
+
+    await setPrices()
+
+    cron.schedule('0 0 0 * * * *',setPrices)
 
 
     app.get('/prices',(req,res) => {
-        res.send(prices)
+        res.send(currentPrices)
     })
 
     const publicPath = path.resolve(__dirname,'../public')
