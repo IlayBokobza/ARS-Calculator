@@ -32,29 +32,31 @@
     <script defer src="js/index.js"></script>
 </head>
 <body>
-    <header class="header">
-        <h1>ARS Gift Card Calculator</h1>
-        <!-- prices -->
-        <h2>Current Prices</h2>
-        <span class="header__update-text">Updates every day at 12am</span>
-        <div class="d-flex">
-            <div class="header__price-box">
-                <span class="d-block">100 ARS - <span id="price-100">X</span></span>
-                <span class="d-block">200 ARS - <span id="price-200">X</span></span>
+    <div class="header__wrapper">
+        <header class="header">
+            <h1>ARS Gift Card Calculator</h1>
+            <!-- prices -->
+            <h2>Current Prices</h2>
+            <span class="header__update-text">Updates every day at 12am</span>
+            <div class="d-flex">
+                <div class="header__price-box">
+                    <span class="d-block">100 ARS - <span id="price-100">X</span></span>
+                    <span class="d-block">200 ARS - <span id="price-200">X</span></span>
+                </div>
+                <div class="header__price-box">
+                    <span class="d-block">300 ARS - <span id="price-300">X</span></span>
+                    <span class="d-block">500 ARS - <span id="price-500">X</span></span>
+                </div>
             </div>
-            <div class="header__price-box">
-                <span class="d-block">300 ARS - <span id="price-300">X</span></span>
-                <span class="d-block">500 ARS - <span id="price-500">X</span></span>
+            <span class="d-block header__100ars">1000 ARS - <span id="price-1000">X</span></span>
+            <!-- input -->
+            <div class="header__input">
+                Buy <input type="number" id="amount-input" placeholder=""> ARS in gift cards. <span class="header__algo-text">Using the <span id="algo-name">accurate</span> algorithm.</span>
             </div>
-        </div>
-        <span class="d-block header__100ars">1000 ARS - <span id="price-1000">X</span></span>
-        <!-- input -->
-        <div class="header__input">
-            Buy <input type="number" id="amount-input" placeholder=""> ARS in gift cards. <span class="header__algo-text">Using the <span id="algo-name">accurate</span> algorithm.</span>
-        </div>
-        <!-- Btn -->
-        <button id="calculate-btn" disabled>Calculate</button>
-    </header>
+            <!-- Btn -->
+            <button id="calculate-btn" disabled>Calculate</button>
+        </header>
+    </div>
     <main style="display: none;" id="main" class="main">
         <div class="main__cards">
             <div style="display: none;" id="100-card" class="main__card">
