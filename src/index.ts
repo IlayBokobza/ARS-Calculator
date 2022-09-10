@@ -20,6 +20,7 @@ async function main(){
     else{
         var prices = await getPrices()
     }
+    return
 
 
     app.get('/prices',(req,res) => {

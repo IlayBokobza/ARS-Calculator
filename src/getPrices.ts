@@ -1,4 +1,7 @@
-import puppeteer from "puppeteer";
+import axios from "axios"
+import {load} from "cheerio"
+
+export type card = 'c100' | 'c200' | 'c300' | 'c500' | 'c1000'
 
 export type prices = {
     c100:number,
@@ -28,23 +31,30 @@ export async function getPrices(){
     }
     
     for(const p in links){
-        const browser = await puppeteer.launch({headless:false}).catch()
-        const tab = await browser.newPage().catch()
+        try{
+            const link = links[p as card]
+            const {data:html} = await axios.get(link,{
+                headers:{
+                    'Accept-Encoding':'gzip, deflate, br',
+                }
+            })
+            const $ = load(html)
+            const elm = $('#collapsible-panel-offers > div > ul:nth-child(2) > li:nth-child(2) > div.indexes__StyledOfferListItemRightSide-sc-1vslyo5-33.bjVUIs > div > span')
+            const price = parseFloat(elm.text().replace('$ ',''))
+            out[p as card] = price
 
-        const link = links[p as keyof prices]
-        const priceSelector = '#collapsible-panel-offers > div > ul:nth-child(2) > li:nth-child(2) > div.indexes__StyledOfferListItemRightSide-sc-1vslyo5-33.bjVUIs'
-        await tab.goto(link)
-        await tab.waitForSelector(priceSelector)
-        const rawPrice = await tab.evaluate((selector) => {
-            return document.querySelector(selector)!.textContent
-        },priceSelector)
-        
-        const price = parseFloat(rawPrice!.replace('$','').trim())
-        out[p as keyof prices] = price
-        console.log(`Price for ${p} is: ${price}$`)
-
-        await tab.close()
-        await browser.close()
+            console.log(`${p} is ${price}$`)
+        }
+        catch(e:any){
+            if(e.response){
+                console.log(e.response.data)
+                console.log(e.response.status)
+            }
+            else{
+                console.log(e)
+            }
+            process.exit()
+        }
     }
 
     return out
