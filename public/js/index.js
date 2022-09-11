@@ -125,7 +125,7 @@ const form = document.getElementById('form')
 const UsdTotal = document.getElementById('usd-total')
 const NisTotal = document.getElementById('nis-total')
 
-const algoChange = 3000;
+let algoChange = 3000;
 
 //runtime
 
