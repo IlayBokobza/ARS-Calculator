@@ -11,10 +11,20 @@
 
 body{
     overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
 }
 
 :root{
     font-size: 62.5%; //1rem = 10px;
+
+    @media only screen and (max-width: 900px){
+        font-size: 40%;   
+    }
+
+    @media only screen and (max-width: 530px){
+        font-size: 30%;   
+    }
 }
 
 .d-block{

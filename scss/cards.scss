@@ -1,8 +1,13 @@
 .main{
+
     &__cards{
         display: flex;
         justify-content: space-around;
         margin-bottom: 3rem;
+
+        @media only screen and (max-width: 650px){
+            flex-direction: column;    
+        }
     }
 
     &__card{
@@ -22,9 +27,12 @@
     &__total{
         font-size: 5rem;
         text-align: center;
+        margin-bottom: 10rem;
     }
-
+    
     &__nis-rate{
-        margin-left: 5rem;
+        font-size: 1rem;
+        // position: relative;
+        // left: 75%;
     }
 }

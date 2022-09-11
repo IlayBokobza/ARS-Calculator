@@ -83,14 +83,47 @@ function handleCalculation(cardsRaw){
     }
 }
 
+function submitHandler(e){
+    e.preventDefault()
+    setLoading(true,btn)
+
+    setTimeout(() => {
+        const value = input.value
+        const data = {...prices}
+        delete data.rate
+        delete data.rateType
+    
+        if(value > algoChange){
+            var out = algorithms.nonBruteForce(data,value)
+        }
+        else{
+            var out = algorithms.bruteForce(data,value)
+        }
+
+        input.value = ''
+        handleInputUpdate()
+        handleCalculation(out)
+        setLoading(false,btn)
+    },5)
+}
+
+window.DEV_showAll = function(){
+    //enable everything
+    main.style.display = 'block'
+    const everyCard = [100,200,300,500,1000]
+    everyCard.forEach(card => {
+        document.getElementById(`${card}-card`).style.display = 'block'
+    })
+}
+
 //data and refs
 const input = document.getElementById('amount-input')
 const algoName = document.getElementById('algo-name')
 const btn = document.getElementById('calculate-btn')
 const main = document.getElementById('main')
+const form = document.getElementById('form')
 const UsdTotal = document.getElementById('usd-total')
 const NisTotal = document.getElementById('nis-total')
-const NisRate = document.getElementById('nis-usd-rate')
 
 const algoChange = 3000;
 
@@ -117,32 +150,13 @@ document.getElementById('price-200').textContent = prices.c200 + rateIcon
 document.getElementById('price-300').textContent = prices.c300 + rateIcon
 document.getElementById('price-500').textContent = prices.c500 + rateIcon
 document.getElementById('price-1000').textContent = prices.c1000 + rateIcon
-NisRate.textContent = prices.rate
+document.getElementById('currency-type').textContent = prices.rateType
+document.getElementById('nis-usd-rate').textContent = prices.rate
 
 //set algorithim name and enable/disable button
 input.addEventListener('keyup',handleInputUpdate)
 
 
 //handle submit
-btn.addEventListener('click',() => {
-    setLoading(true,btn)
-
-    setTimeout(() => {
-        const value = input.value
-        const data = {...prices}
-        delete data.rate
-        delete data.rateType
-    
-        if(value > algoChange){
-            var out = algorithms.nonBruteForce(data,value)
-        }
-        else{
-            var out = algorithms.bruteForce(data,value)
-        }
-
-        input.value = ''
-        handleInputUpdate()
-        handleCalculation(out)
-        setLoading(false,btn)
-    },5)
-})
+btn.addEventListener('click',submitHandler)
+form.addEventListener('submit',submitHandler)

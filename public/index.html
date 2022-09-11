@@ -18,7 +18,7 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <title>ARS Gift Card Calculator</title>
     <script>
-        //loads prices
+        //loads data
         const req = new XMLHttpRequest();
         req.open('GET','/prices',false)
         req.send(null)
@@ -49,39 +49,43 @@
                 </div>
             </div>
             <span class="d-block header__100ars">1000 ARS - <span id="price-1000">X</span></span>
-            <!-- input -->
-            <div class="header__input">
-                Buy <input type="number" id="amount-input" placeholder=""> ARS in gift cards. <span class="header__algo-text">Using the <span id="algo-name">accurate</span> algorithm.</span>
-            </div>
-            <!-- Btn -->
-            <button id="calculate-btn" disabled>Calculate</button>
+            <form class="form" action="#" id="form">
+                <!-- input -->
+                <div class="header__input">
+                    Buy <input type="number" id="amount-input"  placeholder=""> ARS in gift cards. <span class="header__algo-text">Using the <span id="algo-name">accurate</span> algorithm.</span>
+                </div>
+                <!-- Btn -->
+                <button id="calculate-btn" disabled>Calculate</button>
+            </form>
         </header>
     </div>
     <main style="display: none;" id="main" class="main">
         <div class="main__cards">
             <div style="display: none;" id="100-card" class="main__card">
                 <img src="assets/cards/100ars.jpg" alt="100 ars steam gift card">
-                <div class="main__amount-text" id="100-amount">x5</div>
+                <div class="main__amount-text" id="100-amount">xY</div>
             </div>
             <div style="display: none;" id="200-card" class="main__card">
                 <img src="assets/cards/200ars.jpg" alt="200 ars steam gift card">
-                <div class="main__amount-text" id="200-amount">x5</div>
+                <div class="main__amount-text" id="200-amount">xY</div>
             </div>
             <div style="display: none;" id="300-card" class="main__card">
                 <img src="assets/cards/300ars.jpg" alt="300 ars steam gift card">
-                <div class="main__amount-text" id="300-amount">x5</div>
+                <div class="main__amount-text" id="300-amount">xY</div>
             </div>
             <div style="display: none;" id="500-card" class="main__card">
                 <img src="assets/cards/500ars.jpg" alt="500 ars steam gift card">
-                <div class="main__amount-text" id="500-amount">x5</div>
+                <div class="main__amount-text" id="500-amount">xY</div>
             </div>
             <div style="display: none;" id="1000-card" class="main__card">
                 <img src="assets/cards/1000ars.jpg" alt="1000 ars steam gift card">
-                <div class="main__amount-text" id="1000-amount">x5</div>
+                <div class="main__amount-text" id="1000-amount">xY</div>
             </div>
         </div>
-        <div class="main__total">The total price is <span id="usd-total">???</span>, or <span id="nis-total">???</span> NIS*</div>
-        <span class="main__nis-rate">*1 for <span id="nis-usd-rate">3.4</span> NIS</span>
+        <div class="main__total">
+            The total price is <span id="usd-total">???</span>, or <span id="nis-total">???</span> NIS*
+            <span class="main__nis-rate">*1 <span id="currency-type">???</span> for <span id="nis-usd-rate">?.??</span> NIS</span>
+        </div>
     </main>
 </body>
 </html>

@@ -9,7 +9,8 @@
   font-size: 2rem;
   padding-bottom: 10rem;
   margin-bottom: 2rem;
-  clip-path: polygon(0 0, 100% 0, 100% 81%, 0 100%); }
+  clip-path: polygon(0 0, 100% 0, 100% 81%, 0 100%);
+  width: 100%; }
   .header h1 {
     font-size: 5rem !important; }
   .header__update-text {
@@ -29,6 +30,9 @@
     top: 3.5rem;
     left: 102%;
     width: 100%; }
+    @media only screen and (max-width: 650px) {
+      .header__algo-text {
+        display: none; } }
   .header__input {
     font-size: 4rem;
     position: relative;
@@ -54,18 +58,24 @@
     background-color: transparent;
     border: .2rem #fff solid;
     cursor: pointer;
-    transition: opacity 0.3s; }
+    transition: opacity 0.3s;
+    display: block;
+    margin: 0 auto; }
     .header button:disabled {
       cursor: auto;
       opacity: 0.3; }
 
 .header__wrapper {
-  filter: drop-shadow(-1px 6px 4px rgba(0, 0, 0, 0.7)); }
+  filter: drop-shadow(-1px 6px 4px rgba(0, 0, 0, 0.7));
+  width: 100vw; }
 
 .main__cards {
   display: flex;
   justify-content: space-around;
   margin-bottom: 3rem; }
+  @media only screen and (max-width: 650px) {
+    .main__cards {
+      flex-direction: column; } }
 
 .main__card {
   text-align: center;
@@ -79,10 +89,11 @@
 
 .main__total {
   font-size: 5rem;
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 10rem; }
 
 .main__nis-rate {
-  margin-left: 5rem; }
+  font-size: 1rem; }
 
 * {
   font-family: 'Oswald', sans-serif;
@@ -91,10 +102,18 @@
   box-sizing: border-box; }
 
 body {
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh; }
 
 :root {
   font-size: 62.5%; }
+  @media only screen and (max-width: 900px) {
+    :root {
+      font-size: 40%; } }
+  @media only screen and (max-width: 530px) {
+    :root {
+      font-size: 30%; } }
 
 .d-block {
   display: block !important; }
